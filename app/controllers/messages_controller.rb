@@ -1,17 +1,20 @@
 class MessagesController < ApplicationController
     before_action :set_room, only: %i[ new create ]
-    
+    before_action :authenticate_user!
+
     def new
         @message = @room.messages.new
     end
     
     def create
-        @message = @room.messages.create!(message_params)
-    
-        redirect_to @room
-        respond_to do |format|
-            format.turbo_stream
-            format.html { redirect_to @room }
+        @message = @room.messages.build(message_params)
+        @message.user = current_user
+        @message.user.email = current_user.email
+        if @message.save
+            respond_to do |format|
+                format.turbo_stream
+                format.html { redirect_to @room }
+            end
         end
     end
     

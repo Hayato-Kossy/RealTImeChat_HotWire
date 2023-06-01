@@ -1,4 +1,8 @@
 class Message < ApplicationRecord
-  belongs_to :room
   broadcasts_to :room
+
+  belongs_to :room
+  belongs_to :user
+
+  validates :user_id, presence: true
 end
