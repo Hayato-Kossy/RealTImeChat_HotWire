@@ -1,14 +1,27 @@
-<p style="color: green"><%= notice %></p>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h1 class="text-center">Rooms</h1>
 
-<h1>Rooms</h1>
+      <div class="row">
+        <% @rooms.each_slice(2) do |room_slice| %>
+          <% room_slice.each do |room| %>
+            <div class="col-md-6">
+              <div class="card mt-4">
+                <div class="card-body">
+                  <%= render room %>
+                  <%= link_to "Show this room", room, class: 'btn btn-primary' %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
 
-<div id="rooms">
-  <% @rooms.each do |room| %>
-    <%= render room %>
-    <p>
-      <%= link_to "Show this room", room %>
-    </p>
-  <% end %>
+      <div class="mt-4 text-center">
+        <%= link_to "New room", new_room_path, class: 'btn btn-success' %>
+      </div>
+
+    </div>
+  </div>
 </div>
-
-<%= link_to "New room", new_room_path %>
