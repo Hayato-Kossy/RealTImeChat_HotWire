@@ -9,7 +9,6 @@ class MessagesController < ApplicationController
     def create
         @message = @room.messages.build(message_params)
         @message.user = current_user
-        @message.user.email = current_user.email
         if @message.save
             respond_to do |format|
                 format.turbo_stream

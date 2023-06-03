@@ -1,16 +1,15 @@
 <div id="<%= dom_id message %>">
-    <div class="container pt-3 pb-3" style="background-color: #7ebffa">
-        <div class="card <%= message.user == current_user ? 'ml-auto' : 'mr-auto' %>" style="width: 50%; background-color: <%= message.user == current_user ? '#17ef48' : '#ffffff' %>;">
+    <div class="container pt-3 pb-3">
+        <div class="card" data-message-id="<%= message.id %>" style="background-color:#aec2d6">
             <div class="d-flex align-items-center">
                 <%= image_tag url_for(message.user.image), class: "rounded-circle", style: "height: 40px; width: 40px; margin-right: 10px;" if message.user.image.attached? %>
                 <h5 class="card-title" style="margin-bottom: 0;">
                     <%= link_to message.user.name, user_path(message.user), style: "color: black;" %>
                 </h5>
-
             </div>
 
             <div class="d-flex align-items-center card-body">
-                <br>   
+                <br>
                 <h5>
                 <%= message.created_at.to_s(:short) %>: <%= message.content %>
                 </h5>
@@ -18,3 +17,28 @@
         </div>
     </div>
 </div>
+
+<%
+=begin%>
+ <script>
+    var currentUserId = <%= current_user.id %>;
+    var messageUserId = <%= @room.messages[-1].user.id %>;
+    var messageId = <%= @room.messages[-1].id %>;  // 追加
+    var messageCard = document.querySelector(`.card[data-message-id='${messageId}']`);
+    if (messageCard) { // messageCardが存在することを確認
+        if (messageUserId == currentUserId) {
+            messageCard.classList.add('ml-auto');
+            messageCard.style.width = '50%';
+            messageCard.style.backgroundColor = '#17ef48';
+        } else {
+            messageCard.classList.add('mr-auto');
+            messageCard.style.width = '50%';
+            messageCard.style.backgroundColor = '#ffffff';
+        }
+    }
+
+</script> 
+<%
+=end%>
+
+

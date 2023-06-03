@@ -1,26 +1,55 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
+<div class="container mb-5" style="background-color:#5a646e">
+  <div class="row justify-content-center">
+    <div class="col-md-10">
       <%= turbo_stream_from @room %>
-      <%= turbo_frame_tag "room" do %>
-        <%= render @room %>
-        <div class="mt-3">
+      <%= turbo_frame_tag "room", style: "border: none;" do %>
+        <div class="container text-center">  
+          <div class="card" style="border: none; background-color:#1b1b1c" >
+            <p>
+              <h2 style="color: #ffffff;"><strong>Room <%= @room.name %></strong></h2>
+              <h2 style="color: #ffffff;"><br>ホスト：<%= @room.user.name %></h2>
+            </p>
+          </div>
+        </div>
+        <div class="mt-3" style="border: none;">
           <% if @room.user_id == current_user.id%>
             <%= link_to 'Edit', edit_room_path(@room), class: 'btn btn-primary mr-2' %>
           <% end %>
-          <%= link_to 'Back', rooms_path, "data-turbo-frame": "_top", class: 'btn btn-secondary' %>
         </div>
       <% end %>
+
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-12" id="messages">
-          <%= render @room.messages %>
-    </div>
+
+  <div class="col-md-12" id="messages">
+      <%= render @room.messages %>
   </div>
-  <div class="row">
-    <div class="col-md-12">
-      <%= turbo_frame_tag "new_message", src: new_room_message_path(@room), target: "_top" %>
-    </div>
+
+
   </div>
+    <div class="row justify-content-center mt-3">
+      <div class="col-md-10">
+        <div class="card">
+          <div class="card-body">
+            <%= turbo_frame_tag "new_message",style: "border: none;", src: new_room_message_path(@room), target: "_top" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
 </div>
+    <nav class="navbar navbar-light bg-light">
+    <div class="navbar-brand">ChatApp</div>
+      <div class="d-flex justify-content-center">
+        <% if user_signed_in? %>
+          <%= link_to 'ユーザー一覧', users_path, class: "btn btn-outline-primary mr-4" %>
+          <%= link_to 'プロフィール', user_path(current_user), class: "btn btn-outline-success mr-4" %>
+          <%= link_to "Room一覧", rooms_path, class: "btn btn-outline-info mr-4" %>
+          <%= link_to "サインアウト", destroy_user_session_path, class: "btn btn-outline-danger", data: { turbo_method: :delete ,confirm: '本当に削除しますか？' } %>
+        <% else %>
+          <%= link_to "サインアップ", new_user_registration_path, class: "btn btn-outline-info mr-2" %>
+          <%= link_to "サインイン", new_user_session_path, class: "btn btn-outline-secondary" %>
+        <% end %>
+      </div>
+    </nav>

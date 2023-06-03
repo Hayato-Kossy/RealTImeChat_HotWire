@@ -1,1 +1,8 @@
-<%= turbo_stream.append 'messages', partial: 'messages/message', locals: { message: @message } %>
+<%
+=begin%>
+ <%= turbo_stream.append 'messages', partial: 'messages/current_user_message', locals: { message: @message } %>
+
+<%= turbo_stream.append 'messages', partial: 'messages/non_current_user_message', locals: { message: @message } %> 
+<%
+=end%>
+<%= turbo_stream.append "messages", @message %> 
