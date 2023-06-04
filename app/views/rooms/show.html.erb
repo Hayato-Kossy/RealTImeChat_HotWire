@@ -1,6 +1,9 @@
 <div class="container mb-5" style="background-color:#5a646e">
   <div class="row justify-content-center">
     <div class="col-md-10">
+              <button onclick="scrollToBottom()" id="scrollButton" style=" position: fixed; bottom: 20px; right: 20px; z-index: 99; font-size: 18px; border: none; outline: none; background-color: red; color: white; cursor: pointer; padding: 15px; border-radius: 4px;">
+          ページ最下部へ
+          </button>
       <%= turbo_stream_from @room %>
       <%= turbo_frame_tag "room", style: "border: none;" do %>
         <div class="container text-center">  
@@ -20,13 +23,15 @@
 
     </div>
   </div>
-
   <div class="col-md-12" id="messages">
-      <%= render @room.messages %>
+      <%= render @messages %>
+  </div>
+  <div class="d-flex justify-content-center mt-3">
+      <%= paginate @messages %>
   </div>
 
 
-  </div>
+</div>
     <div class="row justify-content-center mt-3">
       <div class="col-md-10">
         <div class="card">
@@ -53,3 +58,8 @@
         <% end %>
       </div>
     </nav>
+<script>
+function scrollToBottom() {
+  window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});
+}
+</script>
