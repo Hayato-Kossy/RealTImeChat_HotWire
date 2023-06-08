@@ -1,6 +1,6 @@
 <%
 =begin%>
- <div id="<%= dom_id message %>" data-controller="message" data-message-user-id="<%= message.user.id %>" data-message-current-user-id="<%= current_user.id %>">
+<div id="<%= dom_id message %>" data-controller="message" data-message-user-id="<%= message.user.id %>" data-message-current-user-id="<%= current_user.id %>">
     <div class="card mb-3" data-message-target="messageCard" style="width: 50%; background-color: <%= message.user == current_user ? '#17ef48' : '#ffffff' %>;">
         <div class="d-flex align-items-center card-body">
             <%= image_tag url_for(message.user.image), class: "rounded-circle", style: "height: 40px; width: 40px; margin-right: 10px;" if message.user.image.attached? %>

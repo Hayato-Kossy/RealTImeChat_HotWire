@@ -1,6 +1,6 @@
 <div id="<%= dom_id message %>">
-    <div class="container pt-3 pb-3">
-        <div class="card" data-message-id="<%= message.id %>" style="background-color:#aec2d6">
+    <div class="container pt-3 pb-3" style="background-color: #7ebffa">
+        <div class="card" data-message-id="<%= message.id %>" >
             <div class="d-flex align-items-center">
                 <%= image_tag url_for(message.user.image), class: "rounded-circle", style: "height: 40px; width: 40px; margin-right: 10px;" if message.user.image.attached? %>
                 <h5 class="card-title" style="margin-bottom: 0;">
